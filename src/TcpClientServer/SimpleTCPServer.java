@@ -39,14 +39,12 @@ public class SimpleTCPServer {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected from " + clientSocket.getInetAddress());
 
-                // Новый поток для обработки клиента
                 new Thread(() -> {
                     try {
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                         String inputLine;
 
-                        // Цикл для чтения всех сообщений от клиента
                         while ((inputLine = in.readLine()) != null) {
                             System.out.println("Received from client: " + inputLine);
                             out.println("Echo from server: " + inputLine);
